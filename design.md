@@ -4,21 +4,31 @@ title: ArgParse
 ---
 classDiagram
     class Argument~T~ {
-        <<abstract>>
-        -boolean Named
-        -List~Validator~T~~ validators
+        <<interface>>
+        +getName() String
+        +isNamed() boolean
         +parse(String str) T
         +addValidation(Validator~T~ validator)
+        +validate()
         +help() String
     }
-    IntegerArgument --|> Argument~Integer~
-    IntegerArgument: parse(String str) Integer
-    IntegerArgument: inRange(Integer min, Integer max)
-    StringArgument --|> Argument~String~
-    FloatArgument --|> Argument~Float~
-    Validator~T~ --* Argument~T~
+    Argument~T~ <|.. BaseArgument~T~
+    BaseArgument: -boolean named
+    BaseArgument: -List~Validator~T~ validators
+    BaseArgument~Integer~ <|-- IntegerArgument
+    IntegerArgument: +inRange(Integer min, Integer max) IntegerArgument
+    BaseArgument~String~ <|-- StringArgument
+    BaseArgument~Float~ <|-- FloatArgument
+    Argument~T~ *-- Validator~T~
     <<interface>> Validator
-    Validator: validate(T val)
+    Validator: +validate(T val)
+    class ArgParser {
+        -Command command
+        +ArgParser()
+        +addArgument(Argument argument)
+        +addSubcommand() Command
+    }
+    ArgParser *-- Command
     class Command {
         -String name
         -List~Argument~ posArgs
@@ -27,14 +37,9 @@ classDiagram
         +addArgument(Argument argument)
         +addSubcommand() Command
     }
-    class ArgParser {
-        -Command command
-        +ArgParser()
-        +addArgument(Argument argument)
-        +addSubcommand() Command
-    }
     class Namespace {
         -Map~String, Result~ args
         -Namespace subNamespace
     }
+    Namespace *-- Namespace
 ```
