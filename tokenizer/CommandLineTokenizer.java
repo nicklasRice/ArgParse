@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CommandLineTokenizer {
-    private static final Pattern TOKEN_PATTERN = Pattern.compile("[^\\s\"']+|\"[^\"]*\"|'[^']*'");
+    private static final Pattern TOKEN_PATTERN = Pattern.compile("-[^=\\s]+(?:=(?:\"[^\"]*\"|'[^']*'|[^\\s\"']+))?|!\\S+|\"[^\"]*\"|'[^']*'|\\S+");
 
     public static List<Token> tokenize(String cliInput) {
         List<Token> tokens = new ArrayList<>();
