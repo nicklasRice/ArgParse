@@ -17,7 +17,8 @@ public class IntegerArgument extends BaseArgument<Integer> {
     @Override
     public Integer convert(String str) throws ParseException {
         try {
-            return Integer.parseInt(str);
+            this.value = Integer.parseInt(str);
+            return this.value;
         } catch (NumberFormatException e) {
             throw new ParseException(String.format("Could not convert argument %s to Integer: %s",
                     getIdentifier(), e.getMessage()), e);

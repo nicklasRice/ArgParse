@@ -17,7 +17,8 @@ public class FloatArgument extends BaseArgument<Float> {
     @Override
     public Float convert(String str) throws ParseException {
         try {
-            return Float.parseFloat(str);
+            this.value = Float.parseFloat(str);
+            return this.value;
         } catch (NumberFormatException e) {
             throw new ParseException(String.format("Could not convert argument %s to Float: %s",
                     getIdentifier(), e.getMessage()), e);
