@@ -4,7 +4,7 @@ import oop.project.cli.argument.Argument;
 import oop.project.cli.argument.FloatArgument;
 import oop.project.cli.exception.ArgBuildException;
 
-public abstract class FloatArgBuilder extends BaseArgBuilder {
+public abstract class FloatArgBuilder extends BaseArgBuilder<Float> {
     FloatArgBuilder(String identifier) {
         super(identifier);
     }
