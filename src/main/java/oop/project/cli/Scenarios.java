@@ -2,6 +2,7 @@ package oop.project.cli;
 
 import oop.project.cli.argument.builder.FloatArgBuilder;
 import oop.project.cli.argument.builder.IntegerArgBuilder;
+import oop.project.cli.argument.builder.StringArgBuilder;
 import oop.project.cli.command.builder.CommandBuilder;
 import oop.project.cli.exception.ArgParseException;
 import oop.project.cli.parser.ArgParser;
@@ -129,6 +130,18 @@ public class Scenarios {
     static Map<String, Object> calc(String arguments) {
         //TODO: Parse arguments and extract values.
         String subcommand = "";
+
+        CommandBuilder commandBuilder = new CommandBuilder("calc");
+        StringArgBuilder argBuilder = new StringArgBuilder("sub");
+        commandBuilder.addArgument(argBuilder.build());
+
+        var parser = new ArgParser(commandBuilder.build());
+        try {
+            var subcom = parser.parse(arguments);
+            subcommand = String.valueOf(subcom);
+        } catch (ArgParseException e) {
+            throw new RuntimeException();
+        }
         return Map.of("subcommand", subcommand);
     }
 

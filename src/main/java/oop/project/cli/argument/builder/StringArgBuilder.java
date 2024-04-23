@@ -6,7 +6,7 @@ import oop.project.cli.exception.ArgBuildException;
 import oop.project.cli.exception.ParseException;
 
 public class StringArgBuilder extends BaseArgBuilder<String>{
-    StringArgBuilder(String identifier) {
+    public StringArgBuilder(String identifier) {
         super(identifier);
     }
 
