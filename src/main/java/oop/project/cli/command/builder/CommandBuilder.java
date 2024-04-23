@@ -8,29 +8,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CommandBuilder {
-    private String identifier;
-    private boolean isNamed = false;
-    private String name = "";
+public final class CommandBuilder {
+    private String name;
     private List<Argument<?>> posArgs = new ArrayList<>();
     private Map<String, Argument<?>> namedArgs = new HashMap<>();
     private Map<String, Command> subcommands = new HashMap<>();
 
-    CommandBuilder(String name) {
+    public CommandBuilder(String name) {
         this.name = name;
     }
 
-    public CommandBuilder reset(String identifier) {
-        this.identifier = identifier;
+    public CommandBuilder reset(String name) {
+        this.name = name;
         this.posArgs = new ArrayList<>();
         this.namedArgs = new HashMap<>();
         this.subcommands = new HashMap<>();
-        return this;
-    }
-
-    public CommandBuilder setName(String name) {
-        this.isNamed = true;
-        this.name = name;
         return this;
     }
 

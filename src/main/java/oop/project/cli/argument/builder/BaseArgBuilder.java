@@ -1,6 +1,7 @@
 package oop.project.cli.argument.builder;
 
-import oop.project.cli.validator.Validator;
+import oop.project.cli.argument.NArgs;
+import oop.project.cli.argument.validator.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,8 @@ public abstract class BaseArgBuilder<T> implements ArgBuilder<T> {
     protected boolean hasDefault = false;
     protected T defaultVal = null;
     protected String help = "";
+    protected NArgs nArgsType = NArgs.ExactlyN;
+    protected Integer nArgs = 1;
 
     BaseArgBuilder(String identifier) {
         this.identifier = identifier;
@@ -27,6 +30,8 @@ public abstract class BaseArgBuilder<T> implements ArgBuilder<T> {
         this.hasDefault = false;
         this.defaultVal = null;
         this.help = "";
+        this.nArgsType = NArgs.ExactlyN;
+        this.nArgs = 1;
         return this;
     }
 
@@ -53,6 +58,19 @@ public abstract class BaseArgBuilder<T> implements ArgBuilder<T> {
     @Override
     public final BaseArgBuilder<T> setHelp(String help) {
         this.help = help;
+        return this;
+    }
+
+    @Override
+    public final BaseArgBuilder<T> setNArgs(NArgs nArgs) {
+        this.nArgsType = nArgs;
+        return this;
+    }
+
+    @Override
+    public final BaseArgBuilder<T> setNArgs(Integer n) {
+        this.nArgsType = NArgs.ExactlyN;
+        this.nArgs = n;
         return this;
     }
 }

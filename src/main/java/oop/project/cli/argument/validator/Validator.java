@@ -1,4 +1,4 @@
-package oop.project.cli.validator;
+package oop.project.cli.argument.validator;
 
 import oop.project.cli.exception.ValidateException;
 
