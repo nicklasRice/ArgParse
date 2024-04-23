@@ -73,6 +73,7 @@ public class Scenarios {
      */
     static Map<String, Object> sub(String arguments) {
         //TODO: Parse arguments and extract values.
+
         Optional<Double> left = Optional.empty();
         double right = 0.0;
         return Map.of("left", left, "right", right);
@@ -85,6 +86,19 @@ public class Scenarios {
     static Map<String, Object> sqrt(String arguments) {
         //TODO: Parse arguments and extract values.
         int number = 0;
+
+        CommandBuilder commandBuilder = new CommandBuilder("sqrt");
+        IntegerArgBuilder argBuilder = new IntegerArgBuilder("number");
+        commandBuilder.addArgument(argBuilder.build());
+
+        var parser = new ArgParser(commandBuilder.build());
+        try {
+            var res = parser.parse(arguments);
+            number = (int) res.get("number");
+
+        } catch (ArgParseException e) {
+            throw new RuntimeException("Invalid argument.");
+        }
         return Map.of("number", number);
     }
 
