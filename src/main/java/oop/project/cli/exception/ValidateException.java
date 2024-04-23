@@ -1,6 +1,6 @@
 package oop.project.cli.exception;
 
-public class ValidateException extends Exception {
+public final class ValidateException extends Exception {
     public ValidateException() {
 
     }

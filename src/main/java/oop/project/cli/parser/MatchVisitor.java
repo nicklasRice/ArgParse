@@ -50,8 +50,8 @@ final class MatchVisitor {
                     " in command " + this.command.getName());
         }
         catch (ParseException e) {
-            throw new ArgParseException("Could not match token " + token.getToken() + " to argument " +
-                    e.getArgName() + " in command " + this.command.getName(), e);
+            throw new ArgParseException("Could not parse token " + token.getToken() + " in command "
+                    + this.command.getName(), e);
         }
     }
 
@@ -66,8 +66,8 @@ final class MatchVisitor {
             this.namespace.insert(namedArg.getIdentifier(), val);
         }
         catch (ParseException e) {
-            throw new ArgParseException("Could not match token " + token.getArgument() + " to argument " +
-                    e.getArgName() + " in command " + this.command.getName(), e);
+            throw new ArgParseException("Could not parse token " + token.getArgument() +
+                    " in command " + this.command.getName(), e);
         }
     }
 

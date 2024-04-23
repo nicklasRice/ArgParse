@@ -2,7 +2,6 @@ package oop.project.cli.argument;
 
 import com.google.common.collect.ImmutableList;
 import oop.project.cli.exception.ArgBuildException;
-import oop.project.cli.exception.ArgParseException;
 import oop.project.cli.exception.ValidateException;
 import oop.project.cli.argument.validator.Validator;
 
@@ -74,13 +73,9 @@ public abstract class BaseArgument<T> implements Argument<T> {
         return this.nArgs;
     }
 
-    protected void validate(T val) throws ArgParseException {
+    protected void validate(T val) throws ValidateException {
         for (var validator : this.validators) {
-            try {
-                validator.validate(val);
-            } catch (ValidateException e) {
-                throw new ArgParseException(String.format("Error while parsing argument %s", this.identifier), e);
-            }
+            validator.validate(val);
         }
     }
  }

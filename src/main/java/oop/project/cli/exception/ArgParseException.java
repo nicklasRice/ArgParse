@@ -1,6 +1,6 @@
 package oop.project.cli.exception;
 
-public class ArgParseException extends Exception {
+public final class ArgParseException extends Exception {
     public ArgParseException() {
 
     }
