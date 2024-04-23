@@ -17,5 +17,5 @@ public interface ArgBuilder<T> {
 
     ArgBuilder<T> setNArgs(NArgs type);
     ArgBuilder<T> setNArgs(Integer n);
-    Argument<T> build();
+    Argument<T> build() throws ArgBuildException;
 }
