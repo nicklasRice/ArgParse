@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import oop.project.cli.exception.ArgBuildException;
 import oop.project.cli.exception.ArgParseException;
 import oop.project.cli.exception.ValidateException;
-import oop.project.cli.validator.Validator;
+import oop.project.cli.argument.validator.Validator;
 
 import java.util.List;
 
@@ -16,9 +16,11 @@ public abstract class BaseArgument<T> implements Argument<T> {
     private final boolean hasDefault;
     private final T defaultVal;
     private final String help;
+    private final NArgs nArgsType;
+    private final Integer nArgs;
 
     BaseArgument(String identifier, boolean isNamed, String name, List<Validator<T>> validators, boolean hasDefault,
-                 T defaultVal, String help) throws ArgBuildException {
+                 T defaultVal, String help, NArgs nArgsType, Integer nArgs) throws ArgBuildException {
         if (!isNamed && hasDefault) {
             throw new ArgBuildException(String.format("Argument %s is positional but has a default",
                     identifier));
@@ -30,6 +32,8 @@ public abstract class BaseArgument<T> implements Argument<T> {
         this.hasDefault = hasDefault;
         this.defaultVal = defaultVal;
         this.help = help;
+        this.nArgsType = nArgsType;
+        this.nArgs = nArgs;
     }
 
     @Override
@@ -60,6 +64,14 @@ public abstract class BaseArgument<T> implements Argument<T> {
     @Override
     public final String getHelp() {
         return this.help;
+    }
+
+    protected final NArgs getNArgsType() {
+        return this.nArgsType;
+    }
+
+    protected final Integer getNArgs() {
+        return this.nArgs;
     }
 
     protected void validate(T val) throws ArgParseException {

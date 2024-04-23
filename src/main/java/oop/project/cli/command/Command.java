@@ -7,7 +7,7 @@ import oop.project.cli.argument.Argument;
 import java.util.List;
 import java.util.Map;
 
-public class Command {
+public final class Command {
     private final String name;
     private final ImmutableList<Argument<?>> posArgs;
     private final ImmutableMap<String, Argument<?>> namedArgs;

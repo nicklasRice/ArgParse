@@ -1,11 +1,13 @@
-package oop.project.cli.tokenizer;
+package oop.project.cli.parser;
+
+import oop.project.cli.exception.ArgParseException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CommandLineTokenizer {
+class CommandLineTokenizer {
     private static final Pattern TOKEN_PATTERN = Pattern.compile("-[^=\\s]+(?:=(?:\"[^\"]*\"|'[^']*'|[^\\s\"']+))?|!\\S+|\"[^\"]*\"|'[^']*'|\\S+");
 
     public static List<Token> tokenize(String cliInput) {
@@ -31,7 +33,7 @@ public class CommandLineTokenizer {
         return tokens;
     }
 
-    public static sealed class Token permits CommandToken, NamedArgToken, PosArgToken {
+    static abstract sealed class Token permits CommandToken, NamedArgToken, PosArgToken {
         protected String token;
 
         public Token(String token) {
@@ -42,26 +44,42 @@ public class CommandLineTokenizer {
             return token;
         }
 
+        abstract public void accept(MatchVisitor m) throws ArgParseException;
+
         @Override
         public String toString() {
             return String.format("[type: %s, token: %s]", this.getClass().getName(), token);
         }
     }
 
-    public final static class CommandToken extends Token {
+    final static class CommandToken extends Token {
         public CommandToken(String token) {
             super(token);
         }
+
+        @Override
+        public void accept(MatchVisitor m) throws ArgParseException {
+            m.match(this);
+        }
+
+        public String getName() {
+            return "";
+        }
     }
 
-    public final static class NamedArgToken extends Token {
-        private String name;
-        private String argument;
+    final static class NamedArgToken extends Token {
+        private final String name;
+        private final String argument;
 
         public NamedArgToken(String token, String name, String argument) {
             super(token);
             this.name = name;
             this.argument = argument;
+        }
+
+        @Override
+        public void accept(MatchVisitor m) throws ArgParseException {
+            m.match(this);
         }
 
         public String getName() {
@@ -78,9 +96,14 @@ public class CommandLineTokenizer {
         }
     }
 
-    public final static class PosArgToken extends Token {
+    final static class PosArgToken extends Token {
         public PosArgToken(String token) {
             super(token);
+        }
+
+        @Override
+        public void accept(MatchVisitor m) throws ArgParseException {
+            m.match(this);
         }
     }
 }

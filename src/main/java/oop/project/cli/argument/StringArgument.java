@@ -1,6 +1,6 @@
 package oop.project.cli.argument;
 
-import oop.project.cli.validator.Validator;
+import oop.project.cli.argument.validator.Validator;
 import oop.project.cli.exception.*;
 import java.util.List;
 

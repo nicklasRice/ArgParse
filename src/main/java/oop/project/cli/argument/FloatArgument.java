@@ -1,6 +1,6 @@
 package oop.project.cli.argument;
 
-import oop.project.cli.validator.Validator;
+import oop.project.cli.argument.validator.Validator;
 import oop.project.cli.exception.*;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class FloatArgument extends BaseArgument<Float> {
             return this.value;
         } catch (NumberFormatException e) {
             throw new ParseException(String.format("Could not convert argument %s to Float: %s",
-                    getIdentifier(), e.getMessage()), e);
+                    getIdentifier(), e.getMessage()), e, this.isNamed() ? this.getName() : this.getIdentifier());
         }
     }
 

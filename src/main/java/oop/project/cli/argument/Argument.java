@@ -11,4 +11,5 @@ public interface Argument<T> {
     T getDefault();
     String getHelp();
     boolean isSatisfied();
+    boolean isFull();
 }
