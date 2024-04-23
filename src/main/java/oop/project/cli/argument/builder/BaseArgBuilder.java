@@ -1,6 +1,7 @@
 package oop.project.cli.argument.builder;
 
 import oop.project.cli.argument.NArgs;
+import oop.project.cli.argument.validator.ChoicesValidator;
 import oop.project.cli.argument.validator.Validator;
 
 import java.util.ArrayList;
@@ -71,6 +72,11 @@ public abstract class BaseArgBuilder<T> implements ArgBuilder<T> {
     public final BaseArgBuilder<T> setNArgs(Integer n) {
         this.nArgsType = NArgs.ExactlyN;
         this.nArgs = n;
+        return this;
+    }
+
+    public final BaseArgBuilder<T> choices(List<T> choices) {
+        this.addValidation(new ChoicesValidator<>(choices));
         return this;
     }
 }
