@@ -4,6 +4,7 @@ import oop.project.cli.argument.Argument;
 import oop.project.cli.command.Command;
 import oop.project.cli.exception.ArgParseException;
 import oop.project.cli.exception.ParseException;
+import org.checkerframework.checker.units.qual.N;
 
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
@@ -16,6 +17,7 @@ final class MatchVisitor {
     public MatchVisitor(Command command) {
         this.command = command;
         this.posArgsIter = this.command.getPosArgs().listIterator();
+        this.namespace = new Namespace(command.getName());
     }
 
     public void match(CommandLineTokenizer.CommandToken token) throws ArgParseException {

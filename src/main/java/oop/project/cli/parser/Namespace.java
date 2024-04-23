@@ -1,10 +1,11 @@
 package oop.project.cli.parser;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public final class Namespace {
     private final String name;
-    private Map<String, Object> parseResults;
+    private final Map<String, Object> parseResults = new HashMap<>();
     private Namespace subnamespace = null;
 
     Namespace(String name) {

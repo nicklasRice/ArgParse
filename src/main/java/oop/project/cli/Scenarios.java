@@ -1,5 +1,11 @@
 package oop.project.cli;
 
+import oop.project.cli.argument.builder.ArgBuilder;
+import oop.project.cli.argument.builder.IntegerArgBuilder;
+import oop.project.cli.command.builder.CommandBuilder;
+import oop.project.cli.exception.ArgParseException;
+import oop.project.cli.parser.ArgParser;
+
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
@@ -38,8 +44,23 @@ public class Scenarios {
      */
     private static Map<String, Object> add(String arguments) {
         //TODO: Parse arguments and extract values.
-        int left = 0; //or BigInteger, etc.
-        int right = 0;
+        int left;
+        int right;
+
+        CommandBuilder commandBuilder = new CommandBuilder("add");
+        IntegerArgBuilder argBuilder = new IntegerArgBuilder("num1");
+        commandBuilder.addArgument(argBuilder.build());
+        argBuilder.reset("num2");
+        commandBuilder.addArgument(argBuilder.build());
+        var parser = new ArgParser(commandBuilder.build());
+        try {
+            var res = parser.parse(arguments);
+            left = (int) res.get("num1");
+            right = (int) res.get("num2");
+        }
+        catch (ArgParseException e) {
+            throw new RuntimeException(e);
+        }
         return Map.of("left", left, "right", right);
     }
 

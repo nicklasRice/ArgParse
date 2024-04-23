@@ -1,6 +1,6 @@
 package oop.project.cli.exception;
 
-public class ArgBuildException extends Exception {
+public class ArgBuildException extends RuntimeException {
     public ArgBuildException() {
 
     }
