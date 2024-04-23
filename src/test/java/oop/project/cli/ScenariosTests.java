@@ -45,14 +45,14 @@ public class ScenariosTests {
 
         public static Stream<Arguments> testSub() {
             return Stream.of(
-                Arguments.of("Sub", "sub -left 1.0 -right 2.0", Map.of("left", 1.0, "right", 2.0)),
-                Arguments.of("Left Only", "sub -left 1.0", null),
-                Arguments.of("Right Only", "sub -right 2.0", Map.of("left", Optional.empty(), "right", 2.0)),
-                Arguments.of("Missing Value", "sub -right", null),
-                Arguments.of("Extraneous Argument", "sub -right 2.0 extraneous", null),
-                Arguments.of("Misspelled Flag", "sub -write 2.0", null),
-                Arguments.of("Not A Number", "sub -right two", null)
-            );
+                Arguments.of("Sub", "sub -left=1.0 -right=2.0", Map.of("left", 1.0F, "right", 2.0F),
+                Arguments.of("Left Only", "sub -left=1.0", null),
+                Arguments.of("Right Only", "sub -right=2.0", Map.of("left", Optional.empty(), "right", 2.0F)),
+                Arguments.of("Missing Value", "sub -right=", null),
+                Arguments.of("Extraneous Argument", "sub -right=2.0 extraneous", null),
+                Arguments.of("Misspelled Flag", "sub -write=2.0", null),
+                Arguments.of("Not A Number", "sub -right=two", null)
+            ));
         }
 
     }

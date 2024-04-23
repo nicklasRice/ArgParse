@@ -1,6 +1,5 @@
 package oop.project.cli;
 
-import oop.project.cli.argument.builder.ArgBuilder;
 import oop.project.cli.argument.builder.FloatArgBuilder;
 import oop.project.cli.argument.builder.IntegerArgBuilder;
 import oop.project.cli.command.builder.CommandBuilder;
@@ -75,8 +74,8 @@ public class Scenarios {
     static Map<String, Object> sub(String arguments) {
         //TODO: Parse arguments and extract values.
 
-        Optional<Double> left = Optional.empty();
-        double right = 0.0;
+        Optional<Float> left = Optional.empty();
+        float right = 0.F;
 
         CommandBuilder commandBuilder = new CommandBuilder("sub");
         FloatArgBuilder argBuilder = new FloatArgBuilder("num1");
@@ -88,14 +87,14 @@ public class Scenarios {
         var parser = new ArgParser(commandBuilder.build());
         try {
             var res = parser.parse(arguments);
-            left = Optional.of((Double) res.get("num1"));
-            right = (double) res.get("num2");
+            left = Optional.of((Float) res.get("num1"));
+            right = (float) res.get("num2");
         }
         catch (ArgParseException e) {
             throw new RuntimeException(e);
         }
 
-        return Map.of("left", left, "right", right);
+        return Map.of("left", left.get(), "right", right);
     }
 
     /**
